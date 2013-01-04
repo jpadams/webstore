@@ -1,0 +1,51 @@
+  <div>
+  <ul background-color="#badda55">
+      <% @paypals.each do |item, button| %>
+	    <li>
+        <h1 class="item"><%= item.title %></h1>
+        <h4 class="item"><%= item.subtitle %></h4>
+        <p><%= item.description %></p>
+        <form  target="paypal" action="https://www.paypal.com/cgi-bin/webscr" method="post">
+	              <input type="hidden" name="cmd" value="_s-xclick" /> 
+		            <input type="hidden" name="encrypted" value="<%=button%>" />
+		            <input type="hidden" name="on0" value="Whole/Ground">Whole/Ground</td></tr>
+                <select name="os0">
+						    <% @grind_options.each_with_index do |grind, index| %>
+						    <option value="<%=grind%>"> <%=grind%>
+						    <% #The first whole bean option is at base price%>
+						    <% if index == 0 %>
+							   <%= number_to_currency(item.price) %>
+							   <% #Other grind options add grind fee to price%>
+						    <%else %>
+							   <%= number_to_currency(item.price + @grind_fee) %>
+							   USD</option>
+							  <% end %>
+							  <% end %>
+                </select>
+                <span class="weight">12oz / 340g</span>
+              <!-- <img src="http://www.cellardoorcoffee.com/image/coffeeBag2.gif" height="75" /> -->
+              <input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_cart_SM.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!" />
+        </form>
+        </li>
+        <% end %>
+      </ul>
+</div>
+
+<div>
+<!-- VIEW CART BUTTON -->
+<form target="paypal" action="https://www.paypal.com/cgi-bin/webscr" method="post">
+<input type="hidden" name="cmd" value="_s-xclick">
+<input type="hidden" name="encrypted" value="-----BEGIN PKCS7-----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-----END PKCS7-----
+">
+<input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_viewcart_SM.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
+<img alt="" border="0" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1" height="1">
+</form>
+</div>
+
+<div>
+  <a href="#" onclick="javascript:window.open('https://www.paypal.com/us/cgi-bin/webscr?cmd=xpt/Marketing/popup/OLCWhatIsPayPal-outside','olcwhatispaypal','toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=yes, resizable=yes, width=400, height=350');"><img  src="https://www.paypal.com/en_US/i/bnr/horizontal_solution_PPeCheck.gif" border="0" alt="Solution Graphics"></a>
+</div>
+
+<!--
+</td></tr></td></tr></table></td></tr>		</table>		</td>		<td width="90%">			<table class="items">				<tr><td class="item"><div style="width:100%; font-size:90%; text-align:center;"><img src="http://www.cellardoorcoffee.com/image/ethio.jpg" alt="Ethiopia" width="100%" style="padding-bottom:0.5em;" />Coffee Trip, Yirgalem, Ethiopia, 2009</div></td></tr>				<tr><td class="item"><div style="width:100%; font-size:90%; text-align:center;"><img src="http://www.cellardoorcoffee.com/image/oldshop.jpg" alt="The Coffee Shop before..." width="100%" style="padding-bottom:0.5em;" />The Shop in a Previous Life, 1940's</div></td></tr>			<tr><td class="item"><div style="width:100%; font-size:90%; text-align:center;"><img src="http://www.cellardoorcoffee.com/image/clipping.jpg" alt="First Press" width="100%" style="padding-bottom:0.5em;" />Our First Piece of Press, Kathleen Bauer for The Oregonian, FOODday, August, 2007</div></td></tr>			</table>		</td>		</tr>		</table>
+-->  
